@@ -14,18 +14,16 @@ const CLPInvestedInETH = config.CLPInvestedInETH;
 let clpbtcEarnings;
 let clpEthEarnings;
 
-request(apiUrlBtc)
+Promise.all([request(apiUrlBtc),request(apiUrlEth)]) 
 .then(r => {
-	let btcValue = (Number)(JSON.parse(r).ticker.max_bid[0]);
+	let btcValue = (Number)(JSON.parse(r[0]).ticker.max_bid[0]);
 	clpbtcEarnings = btcValue*btcAmount - CLPInvestedInBTC;
 	console.log(`Inversión BTC:
 	 CLP invertido: ${CLPInvestedInBTC}
 	 ganancias: ${clpbtcEarnings}
 	 Porcentaje total de cambio: ${(clpbtcEarnings/CLPInvestedInBTC*100).toFixed(2)}%\n`);
-	return request(apiUrlEth);
-})
-.then(r => {
-	let ethValue = (Number)(JSON.parse(r).data.prices_ask.values[0].close_price);
+	
+	let ethValue = (Number)(JSON.parse(r[1]).data.prices_ask.values[0].close_price);
 	clpEthEarnings = Math.round(ethValue * ethAmount - CLPInvestedInETH);
 	console.log(`Inversión ETH:
 	 CLP invertido: ${CLPInvestedInETH}
