@@ -1,6 +1,11 @@
 'use strict';
 const request = require('request-promise');
 const config = require('./config.js');
+var Spinner = require('cli-spinner').Spinner;
+ 
+var spinner = new Spinner('Buscando los últimos valores... %s');
+spinner.setSpinnerString('|/-\\');
+spinner.start();
 
 const apiUrlBtc = 'https://www.surbtc.com/api/v2/markets/btc-clp/ticker';
 const apiUrlEth = 'https://www.cryptomkt.com/api/ethclp/240.json';
@@ -16,6 +21,7 @@ let clpEthEarnings;
 
 Promise.all([request(apiUrlBtc),request(apiUrlEth)]) 
 .then(r => {
+	spinner.stop(true);
 	let btcValue = (Number)(JSON.parse(r[0]).ticker.max_bid[0]);
 	clpbtcEarnings = btcValue*btcAmount - CLPInvestedInBTC;
 	console.log(`Inversión BTC:
