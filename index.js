@@ -20,11 +20,7 @@ let clpbtcEarnings;
 let clpEthEarnings;
 
 function separators() {
-	let x = this.toString();
-  var pattern = /(-?\d+)(\d{3})/;
-  while (pattern.test(x))
-      x = x.replace(pattern, "$1.$2");
-  return x;
+	return this.toLocaleString().replace(/,/g,'.');
 };
 
 Number.prototype.s = separators;
