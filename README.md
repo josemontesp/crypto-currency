@@ -1,4 +1,4 @@
-Esta herramienta te permite saber cúanto han subido o bajado tus inversiones en Bitcoin o Ethereum
+Esta herramienta te permite saber cuánto han subido o bajado tus inversiones en Bitcoin o Ethereum
 
 `npm install`
 
